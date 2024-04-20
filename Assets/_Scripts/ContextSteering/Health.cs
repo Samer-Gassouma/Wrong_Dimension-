@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.UI;
+using TMPro;
 public class Health : MonoBehaviour
 {
     [SerializeField]
     private int currentHealth, maxHealth;
-
+       
+    int damage = 1;
+   
+    int score = 0;
+        
     public UnityEvent<GameObject> OnHitWithReference, OnDeathWithReference;
 
     [SerializeField]
@@ -19,6 +24,12 @@ public class Health : MonoBehaviour
         maxHealth = healthValue;
         isDead = false;
     }
+   
+
+
+
+
+
 
     public void GetHit(int amount, GameObject sender)
     {
@@ -26,6 +37,22 @@ public class Health : MonoBehaviour
             return;
         if (sender.layer == gameObject.layer)
             return;
+
+        Debug.Log("Health: " + currentHealth);
+        Debug.Log("sender layer: " + sender.layer);
+        Debug.Log("sender: " + sender);
+        Debug.Log("Hit: " + amount);
+
+        if(sender.ToString().Contains("Player"))
+        {
+            score += amount;
+         }
+        else
+        {
+            score -= amount;
+        }
+
+        GameManager.UpdateScore(score);
 
         currentHealth -= amount;
 

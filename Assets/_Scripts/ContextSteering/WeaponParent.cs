@@ -11,7 +11,7 @@ public class WeaponParent : MonoBehaviour
     public Animator animator;
     public float delay = 0.3f;
     private bool attackBlocked;
-
+    int damage = 1;
     public bool IsAttacking { get; private set; }
 
     public Transform circleOrigin;
@@ -21,6 +21,23 @@ public class WeaponParent : MonoBehaviour
     {
         IsAttacking = false;
     }
+
+
+    public void ActivateDoubleDamage(int powerUpDuration)
+    {
+         damage += 2;
+        StartCoroutine(DeactivateDoubleDamage(powerUpDuration));
+
+    }
+
+
+    IEnumerator DeactivateDoubleDamage(int powerUpDuration)
+    {
+        yield return new WaitForSeconds(powerUpDuration);
+        damage -= 2;
+    }
+
+
 
     private void Update()
     {
@@ -48,6 +65,19 @@ public class WeaponParent : MonoBehaviour
         }
     }
 
+
+    public void ActivateAttackBlocker(int powerUpDuration)
+    {
+        attackBlocked = true;
+        StartCoroutine(DeactivateAttackBlocker(powerUpDuration));
+
+    }
+
+    IEnumerator DeactivateAttackBlocker(int powerUpDuration)
+    {
+        yield return new WaitForSeconds(powerUpDuration);
+        attackBlocked = false;
+    }
     public void Attack()
     {
         if (attackBlocked)
@@ -81,7 +111,7 @@ public class WeaponParent : MonoBehaviour
             Health health;
             if(health = collider.GetComponent<Health>())
             {
-                health.GetHit(1, transform.parent.gameObject);
+                health.GetHit(damage, transform.parent.gameObject);
             }
         }
     }

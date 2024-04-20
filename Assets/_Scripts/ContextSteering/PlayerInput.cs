@@ -9,18 +9,49 @@ public class PlayerInput : MonoBehaviour
 {
     public UnityEvent<Vector2> OnMovementInput, OnPointerInput;
     public UnityEvent OnAttack;
-
+    public static float speed = 1;
     //[SerializeField]
     //private InputActionReference movement, attack, pointerPosition;
 
     private void Update()
     {
         //OnMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
-        OnMovementInput?.Invoke(new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical")));
-        OnPointerInput?.Invoke(GetPointerInput());
+        OnMovementInput?.Invoke((new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"))) * speed);
+        OnPointerInput?.Invoke(GetPointerInput()); 
         if(Input.GetMouseButtonDown(0))
             OnAttack?.Invoke();
     }
+
+    public void ActivateSpeedBoost(int powerUpDuration)
+    {
+        float oldSpeed = speed;
+        speed = 2;
+        StartCoroutine(DeactivateSpeedBoost(powerUpDuration, oldSpeed));
+
+    }
+    IEnumerator DeactivateSpeedBoost(int powerUpDuration, float oldSpeed)
+    {
+        yield return new WaitForSeconds(powerUpDuration);
+        speed = oldSpeed;
+    }
+
+
+    public void ActivateSpeedSlower(int powerUpDuration)
+    {
+        float oldSpeed = speed;
+        speed -= 0.5f;
+        StartCoroutine(DeactivateSpeedSlower(powerUpDuration, oldSpeed));
+
+    }
+
+    IEnumerator DeactivateSpeedSlower(int powerUpDuration, float oldSpeed)
+    {
+        yield return new WaitForSeconds(powerUpDuration);
+        speed = oldSpeed;
+    }
+
+    
+
 
     private Vector2 GetPointerInput()
     {
