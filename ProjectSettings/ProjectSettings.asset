@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Procedural2DDungeonTutorial
+  productName: Wrong_Dimension-
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -725,7 +725,7 @@ PlayerSettings:
   cloudProjectId: 75e73e88-be88-47b6-9a22-ca17fd8e198f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Procedural2DDungeonTutorial
+  projectName: Wrong_Dimension-
   organizationId: sunnyvalleystudio
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
